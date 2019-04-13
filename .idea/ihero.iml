@@ -4,6 +4,13 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/easyrdf/easyrdf" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/easyrdf/easyrdf-0.9.0" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/rdfapi-php/api" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/rdfapi-php/doc" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/rdfapi-php/netapi" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/rdfapi-php/rap-pubby" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/rdfapi-php/test" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/rdfapi-php/tools" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
