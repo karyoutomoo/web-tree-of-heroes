@@ -1,6 +1,11 @@
 /*Now the CSS*/
 * {margin: 0; padding: 0;}
-
+.center {
+	margin: auto;
+	width: 50%;
+	border: 3px solid green;
+	padding: 10px;
+}
 .tree ul {
 	padding-top: 20px; position: relative;
 	transition: all 0.5s;
@@ -12,8 +17,7 @@
 	float: left; text-align: center;
 	list-style-type: none;
 	position: relative;
-	padding: 20px 5px 0 5px;
-	color:red;
+	padding: 20px 10px 0 5px;
 	transition: all 0.5s;
 	-webkit-transition: all 0.5s;
 	-moz-transition: all 0.5s;
@@ -25,6 +29,7 @@
 	content: '';
 	position: absolute; top: 0; right: 50%;
 	border-top: 1px solid #ccc;
+
 	width: 50%; height: 20px;
 }
 .tree li::after{
@@ -91,7 +96,7 @@ right connector from last child*/
 	text-decoration: none;
 	color: #666;
 	font-family: arial, verdana, tahoma;
-	font-size: 15px;
+	font-size: 20px;
 	display: inline-block;
 
 	border-radius: 15px;
