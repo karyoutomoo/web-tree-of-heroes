@@ -53,18 +53,20 @@
                         ?s rdf:type <http://www.semanticweb.org/asus/ontologies/2016/3/ihero/Hero>
                         }
                         LIMIT 100");
+    $name = sparql_get("localhost:3030/sample/query",
+        "PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
+                        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                        
+                        SELECT ?s
+                        WHERE {
+                        ?s rdf:type <http://www.semanticweb.org/asus/ontologies/2016/3/ihero/Hero>
+                        ?s fam:hasName ?name
+                        }
+                        LIMIT 100");
     if (!isset($data)) {
         print "<p>Error: " . sparql_errno() . ": " . sparql_error() . "</p>";
     }
-    //progres
-    $i=0;
-    foreach ($data as $row) {
-        foreach ($data->fields() as $field) {
-            $data[$i] = $row[$field];
-            $i++;
-        }
-    }
-    //progres
+
     ?>
     <div class="row content">
         <div class="large-up-8">
@@ -74,11 +76,9 @@
                     <div class="input-group">
                         <select class="input-group-field" name="entity">
                             <?php
-                            $j=0;//progres
                             foreach ($data as $row) {
                                 foreach ($data->fields() as $name) { ?>
                                     <option selected value="<?= $row[$name] ?>"><?= $row[$name] ?></option>//progres
-                                    <?$j++?>//progres
                                 <?php }
                             } ?>
                         </select>

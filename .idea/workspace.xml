@@ -2,65 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="132027b1-6119-4b66-bd5c-475094c68687" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/CHANGELOG.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/DEVELOPER.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/composer.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/doap.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Collection.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Container.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Exception.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Format.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Graph.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/GraphStore.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Http.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Http/Client.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Http/Exception.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Http/Response.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Isomorphic.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Literal.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Literal/Boolean.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Literal/Date.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Literal/DateTime.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Literal/Decimal.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Literal/HTML.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Literal/HexBinary.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Literal/Integer.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Literal/XML.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/ParsedUri.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Parser.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Parser/Arc.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Parser/Exception.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Parser/Json.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Parser/JsonLd.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Parser/Ntriples.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Parser/Rapper.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Parser/RdfPhp.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Parser/RdfXml.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Parser/Rdfa.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Parser/Redland.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Parser/Turtle.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/RdfNamespace.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Resource.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Serialiser.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Serialiser/Arc.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Serialiser/GraphViz.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Serialiser/Json.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Serialiser/JsonLd.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Serialiser/Ntriples.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Serialiser/Rapper.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Serialiser/RdfPhp.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Serialiser/RdfXml.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Serialiser/Turtle.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Sparql/Client.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Sparql/Result.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/TypeMapper.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/lib/Utils.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/easyrdf-master/easyrdf-master/scripts/copyright_updater.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/foundation/img/bg.png" beforeDir="false" afterPath="$PROJECT_DIR$/foundation/img/bg.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
     </list>
@@ -75,7 +16,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/style.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="187">
@@ -84,11 +25,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="427">
-              <caret line="79" column="116" selection-start-line="79" selection-start-column="116" selection-end-line="79" selection-end-column="116" />
+            <state relative-caret-position="272">
+              <caret line="80" column="116" selection-start-line="80" selection-start-column="116" selection-end-line="80" selection-end-column="116" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
               </folding>
@@ -154,8 +95,8 @@
         <option value="$PROJECT_DIR$/vendor/easyrdf/easyrdf/lib/EasyRdf/Graph.php" />
         <option value="$PROJECT_DIR$/indexbackup.php" />
         <option value="$PROJECT_DIR$/foundation/css/app.css" />
-        <option value="$PROJECT_DIR$/style.css" />
         <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/style.css" />
       </list>
     </option>
   </component>
@@ -277,16 +218,15 @@
       <workItem from="1557574774262" duration="1203000" />
       <workItem from="1557641569062" duration="86000" />
       <workItem from="1557719636118" duration="7586000" />
-      <workItem from="1557746206186" duration="5341000" />
+      <workItem from="1557746206186" duration="5722000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="116230000" />
+    <option name="totallyTimeSpent" value="116611000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19591528" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -386,20 +326,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="80" column="116" selection-start-line="80" selection-start-column="116" selection-end-line="80" selection-end-column="116" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="80" column="17" selection-start-line="80" selection-start-column="17" selection-end-line="80" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="79" column="116" selection-start-line="79" selection-start-column="116" selection-end-line="79" selection-end-column="116" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
