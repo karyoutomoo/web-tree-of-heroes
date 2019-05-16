@@ -141,14 +141,14 @@
                     echo "<ul>";
                     echo "<li>";
                     echo "<a>Father Unknown</a>";
-                    echo "--❤--";
+                    echo "-❤-";
                 } else {
                     foreach ($data_father as $row) {
                         foreach ($data_father->fields() as $field) {
                             echo "<ul>";
                             echo "<li>";
                             echo '<a href="?entity='.urlencode($fatherIRI).'">'.str_replace('http://www.semanticweb.org/asus/ontologies/2016/3/ihero/', "",$row[$field]).'</a>';
-                            echo "--❤--";
+                            echo "-❤-";
                         }
                     }
                 }
@@ -287,7 +287,7 @@
                                 foreach ($data_child as $rowChild) {
                                     foreach ($data_child->fields() as $field) {
                                         if($rowChild[$field] == ''){
-                                            $flagChild = 0;
+                                            $flagChild = 0; //tidak punya anak
                                         }else $flagChild = 1;
                                     }
                                 }
@@ -298,6 +298,59 @@
                                         foreach ($data_child->fields() as $field) {
                                             echo "<li>";
                                             echo '<a href="?entity='.urlencode($childIRI[$j]).'">'.str_replace('http://www.semanticweb.org/asus/ontologies/2016/3/ihero/', "",$rowChild[$field]).'</a>';
+
+                                            //getChildInLaw
+                                            $data_ChildInLaw = sparql_get("localhost:3030/sample/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
+                                            SELECT ?name
+                                            WHERE {
+                                                <' . $childIRI[$j] . '> fam:isSpouseOf ?sbj.
+                                                ?sbj fam:hasName ?name
+                                            }');
+                                            $data_ChildInLawIRI = sparql_get("localhost:3030/sample/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
+                                            SELECT ?spouseIRI
+                                            WHERE {
+                                                <' . $childIRI[$j] . '> fam:isSpouseOf ?spouseIRI
+                                            }');
+                                            $k=0;
+                                            foreach ($data_ChildInLawIRI as $rowChildInLawIRI) {
+                                                foreach ($data_ChildInLawIRI->fields() as $field) {
+                                                    $childInLawIRI[$k] = $rowChildInLawIRI[$field];
+                                                    $k++;
+                                                }
+                                            }
+                                            if (!isset($data_ChildInLaw) || $data_ChildInLaw == '') {
+                                                echo "-❤-<a>Spouse Unknown</a>";
+                                            }else{
+                                                $k=0;
+                                                foreach ($data_ChildInLaw as $rowChildInLaw) {
+                                                    foreach ($data_ChildInLaw->fields() as $field) {
+                                                        echo "-❤-";
+                                                        echo '<a href="?entity=' . urlencode($childInLawIRI[$k]) . '">' . str_replace('http://www.semanticweb.org/asus/ontologies/2016/3/ihero/', "", $rowChildInLaw[$field]) . '</a>';
+                                                        $k++;
+                                                        echo '</br>';
+                                                        $childInLawName = $rowChildInLaw[$field];
+                                                        //getGrandChild
+                                                        $childName = $rowChild[$field];
+                                                        $data_grandchild = sparql_get("localhost:3030/sample/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
+                                                        SELECT ?childName
+                                                        WHERE {
+                                                                <' . $childIRI[$j] . '> fam:hasChild ?childIRI.
+                                                              ?spouseIRI fam:hasName "' . $spouseName . '".
+                                                              ?spouseIRI fam:hasChild ?childIRI.
+                                                              ?spouseIRI fam:isSpouseOf <' . $childIRI[$j] . '>.
+                                                              ?childIRI fam:hasName ?childName
+                                                             }');
+                                                        $data_grandchildIRI = sparql_get("localhost:3030/sample/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
+                                                        SELECT ?childIRI
+                                                        WHERE {  
+                                                          <' . $childIRI[$j] . '> fam:hasChild ?childIRI.
+                                                          ?spouseIRI fam:hasName "' . $spouseName . '".
+                                                          ?spouseIRI fam:hasChild ?childIRI.
+                                                          ?spouseIRI fam:isSpouseOf <' . $childIRI[$j] . '> 
+                                                        }');
+                                                    }
+                                                }
+                                            }
                                             $j++;
                                             echo "</li>";
                                         }
