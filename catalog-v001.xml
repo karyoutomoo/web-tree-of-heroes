@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1552987628615" name="http://www.semanticweb.org/asus/ontologies/2016/6/untitled-ontology-148" uri="ihero2.rdf"/>
-        <uri id="Automatically generated entry, Timestamp=1552987628615" name="http://www.semanticweb.org/kamali-yahya/ontologies/2016/6/untitled-ontology-67" uri="ihero.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1558067800526" name="emptyResource.rdf#" uri="vendor/rdfapi-php/test/unit/emptyResource_serialized.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1558067800526" name="duplicate:http://powl.sf.net/SysOnt/0.1#" uri="vendor/rdfapi-php/test/unit/mt1.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1558067800526" name="duplicate:http://powl.sf.net/SysOnt/0.1#" uri="vendor/rdfapi-php/test/unit/multipleTypes.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1558067800526" name="http://www.example.org/base" uri="vendor/easyrdf/easyrdf-0.9.0/test/fixtures/rdfxml/gh157-base.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1558067800526" name="http://www.semanticweb.org/asus/ontologies/2016/6/untitled-ontology-148" uri="ihero2.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1558067800526" name="duplicate:http://www.semanticweb.org/kamali-yahya/ontologies/2016/6/untitled-ontology-67" uri="ihero.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1558067800526" name="duplicate:http://www.semanticweb.org/kamali-yahya/ontologies/2016/6/untitled-ontology-67" uri="sample2.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1558067800526" name="http://www.w3.org/Home/Lassila.rdf#" uri="vendor/rdfapi-php/doc/example1.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1558067800526" name="shadowed:http://www.example.org/base" uri="vendor/easyrdf/easyrdf/test/fixtures/rdfxml/gh157-base.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1558067800526" name="shadowed:http://www.w3.org/Home/Lassila.rdf#" uri="vendor/rdfapi-php/test/example1.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1558067800526" name="shadowed:http://www.w3.org/Home/Lassila.rdf#" uri="vendor/rdfapi-php/test/Output.n3"/>
+        <uri id="Automatically generated entry, Timestamp=1558067800526" name="shadowed:http://www.w3.org/Home/Lassila.rdf#" uri="vendor/rdfapi-php/test/Output.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1558067800526" name="shadowed:http://www.w3.org/Home/Lassila.rdf#" uri="vendor/rdfapi-php/test/unit/example1.rdf"/>
     </group>
 </catalog>

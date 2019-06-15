@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="132027b1-6119-4b66-bd5c-475094c68687" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog-v001.xml" beforeDir="false" afterPath="$PROJECT_DIR$/catalog-v001.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,8 +29,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="326" column="67" lean-forward="true" selection-start-line="326" selection-start-column="67" selection-end-line="326" selection-end-column="67" />
+            <state relative-caret-position="816">
+              <caret line="333" column="61" lean-forward="true" selection-start-line="333" selection-start-column="61" selection-end-line="333" selection-end-column="61" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
               </folding>
@@ -80,10 +81,11 @@
       <find>echo &quot;&lt;ul&gt;&quot;;</find>
       <find>ins</find>
       <find>large</find>
-      <find>large</find>
       <find>.large {</find>
       <find>div</find>
       <find>callout</find>
+      <find>sample</find>
+      <find>str_replace</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -114,7 +116,7 @@
       <path value="$PROJECT_DIR$/vendor/rdfapi-php/test" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
     <option name="width" value="1385" />
@@ -222,18 +224,25 @@
       <workItem from="1557805828150" duration="630000" />
       <workItem from="1557843384784" duration="604000" />
       <workItem from="1557884401361" duration="637000" />
-      <workItem from="1557986707996" duration="3115000" />
+      <workItem from="1557986707996" duration="3635000" />
+      <workItem from="1558012733433" duration="88000" />
+      <workItem from="1558066301923" duration="1187000" />
+      <workItem from="1558095020080" duration="54000" />
+      <workItem from="1560353780425" duration="1347000" />
+      <workItem from="1560516043733" duration="1248000" />
+      <workItem from="1560574032944" duration="7977000" />
+      <workItem from="1560614382401" duration="4879000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="121597000" />
+    <option name="totallyTimeSpent" value="138897000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20469083" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2196162" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -340,8 +349,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="326" column="67" lean-forward="true" selection-start-line="326" selection-start-column="67" selection-end-line="326" selection-end-column="67" />
+        <state relative-caret-position="816">
+          <caret line="333" column="61" lean-forward="true" selection-start-line="333" selection-start-column="61" selection-end-line="333" selection-end-column="61" />
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
           </folding>
