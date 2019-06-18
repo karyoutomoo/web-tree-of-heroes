@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tokoh Sejarah Indonesia</title>
+    <title>Family Tree App</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,400italic' rel='stylesheet' type='text/css'>
     <!-- foundation css -->
     <link rel="stylesheet" href="foundation/css/app.css">
@@ -20,7 +20,7 @@
             <div class="top-bar">
                 <div class="row">
                     <div class="large-2 columns large-centered">
-                        <h5><strong>Pohon Keluarga</strong></h5>
+                        <h5><strong>Family Tree App</strong></h5>
                     </div>
                 </div>
             </div>
@@ -192,16 +192,23 @@
 
                 // new -> hasSibling
                 $data_sibling = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
-                                        SELECT ?name
-                                            WHERE {
-                                                <' . $selected_val . '> fam:hasSister|fam:hasBrother ?siblingIRI.
-                                                ?siblingIRI fam:hasName ?name
-                                            }');
+                                        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+                                        SELECT ?siblingname
+                                           WHERE {  
+                                              <' . $selected_val . '> fam:hasParent ?parentIRI.
+                                              ?parentIRI foaf:name ?name.
+                                              ?parentIRI fam:hasChild ?siblingIRI.
+                                              ?siblingIRI foaf:name ?siblingname
+                                           }LIMIT 4');
                 $data_siblingIRI = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
+                                        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
                                         SELECT ?siblingIRI
-                                            WHERE {
-                                                <' . $selected_val . '> fam:hasSister|fam:hasBrother ?siblingIRI
-                                            }');
+                                           WHERE {  
+                                              <' . $selected_val . '> fam:hasParent ?parentIRI.
+                                               ?parentIRI foaf:name ?name.
+                                               ?parentIRI fam:hasChild ?siblingIRI.
+                                               ?siblingIRI foaf:name ?siblingname
+                                           }LIMIT 4');
 
                 $i=0;
                 foreach ($data_siblingIRI as $rowSiblingIRI) {
@@ -219,6 +226,8 @@
                     foreach ($data_sibling as $row) {
                         foreach ($data_sibling->fields() as $field) {
                             echo "<li>";
+                            if (strlen($row[$field]) > 20)
+                                $row[$field] = substr($row[$field], 0, 15) . '...';
                             echo '<a href="?entity='.urlencode($siblingIRI[$i]).'">'.str_replace('http://www.dbpedia.org/resource/', "",$row[$field]).'</a>';
                             $i++;
                             echo "</li>";
@@ -232,7 +241,7 @@
                     foreach ($data_name as $row) {
                         foreach ($data_name->fields() as $field) {
                             echo "<li>";
-                            print "<a>$row[$field]</a>";
+                            print "<a style='font-style: italic'>$row[$field]</a>";
                         }
                     }
                 }else{
@@ -243,7 +252,7 @@
                 // spouse
                 $data_spouse = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-                                        SELECT DISTINCT ?name
+                                        SELECT ?name
                                             WHERE {
                                                 <' . $selected_val . '> fam:isSpouseOf ?sbj.
                                                 ?sbj foaf:name ?name
@@ -251,11 +260,11 @@
                                             ');
                 $data_spouseIRI = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-                                        SELECT DISTINCT ?spouseIRI
+                                        SELECT ?spouseIRI
                                             WHERE {
                                                 <' . $selected_val . '> fam:isSpouseOf ?spouseIRI.
                                                 ?sbj foaf:name ?name
-                                            }');
+                                            } LIMIT 1');
                 $i=0;
                 foreach ($data_spouseIRI as $rowSpouseIRI) {
                     foreach ($data_spouseIRI->fields() as $field) {
@@ -276,19 +285,21 @@
                             //get child data
                             $data_child = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-                                        SELECT DISTINCT ?childName
+                                        SELECT ?childName
                                             WHERE {
+                                                    <' . $selected_val . '> fam:hasChild ?childIRI.
                                                     <' . $spouseIRI[$i] . '> fam:hasChild ?childIRI.
                                                     ?childIRI foaf:name ?childName
-                                                 }LIMIT 4');
+                                                 }LIMIT 5');
 
                             $data_childIRI = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-                                        SELECT DISTINCT ?childIRI
+                                        SELECT ?childIRI
                                            WHERE {  
+                                              <' . $selected_val . '> fam:hasChild ?childIRI.
                                               <' .$spouseIRI[$i] . '> fam:hasChild ?childIRI.
                                               ?childIRI foaf:name ?childName
-                                            }LIMIT 4');
+                                            }LIMIT 5');
                             $i++;
                             $j=0;
                             foreach ($data_childIRI as $rowChildIRI) {
@@ -314,19 +325,21 @@
 
                                             if(isset($childIRI[$cc])) {
                                                 echo "<li>";
+                                                if (strlen($rowChild[$field]) > 20)
+                                                    $rowChild[$field] = substr($rowChild[$field], 0, 15) . '...';
                                                 echo '<a href="?entity='.urlencode($childIRI[$cc]).'">'.str_replace('http://www.dbpedia.org/resource/', "",$rowChild[$field]).'</a>';
 
                                             //getChildInLaw
                                             $data_ChildInLaw = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                             PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-                                            SELECT DISTINCT ?name
+                                            SELECT  ?name
                                             WHERE {
                                                 <' . $childIRI[$cc] . '> fam:isSpouseOf ?sbj.
                                                 ?sbj foaf:name ?name
                                             }LIMIT 1');
                                             $data_ChildInLawIRI = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                             PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-                                            SELECT DISTINCT ?sbj
+                                            SELECT  ?sbj
                                             WHERE {
                                                 <' . $childIRI[$cc] . '> fam:isSpouseOf ?sbj.
                                                 ?sbj foaf:name ?name

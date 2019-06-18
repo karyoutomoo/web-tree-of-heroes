@@ -7,7 +7,7 @@
 	padding: 10px;
 }
 .tree ul {
-	padding-top: 20px; position: relative;
+	padding-top: 20px; position: absolute;
 	transition: all 0.5s;
 	-webkit-transition: all 0.5s;
 	-moz-transition: all 0.5s;
@@ -16,7 +16,7 @@
 .tree li {
 	float: left; text-align: center;
 	list-style-type: none;
-	position: relative;
+	position: absolute;
 	padding: 20px 10px 0 5px;
 	transition: all 0.5s;
 	-webkit-transition: all 0.5s;
