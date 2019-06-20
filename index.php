@@ -191,24 +191,16 @@
                 }
 
                 // new -> hasSibling
-                $data_sibling = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
-                                        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-                                        SELECT ?siblingname
-                                           WHERE {  
-                                              <' . $selected_val . '> fam:hasParent ?parentIRI.
-                                              ?parentIRI foaf:name ?name.
-                                              ?parentIRI fam:hasChild ?siblingIRI.
-                                              ?siblingIRI foaf:name ?siblingname
-                                           }LIMIT 4');
                 $data_siblingIRI = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-                                        SELECT ?siblingIRI
+                                        SELECT DISTINCT ?siblingIRI
                                            WHERE {  
                                               <' . $selected_val . '> fam:hasParent ?parentIRI.
                                                ?parentIRI foaf:name ?name.
                                                ?parentIRI fam:hasChild ?siblingIRI.
                                                ?siblingIRI foaf:name ?siblingname
-                                           }LIMIT 4');
+                                                FILTER(?siblingIRI != <' . $selected_val . '>)
+                                           }LIMIT 3');
 
                 $i=0;
                 foreach ($data_siblingIRI as $rowSiblingIRI) {
@@ -218,17 +210,28 @@
                     }
                 }
 
-                if (!isset($data_sibling) || $data_sibling == '') {
+                if (!isset($data_siblingIRI) || $data_siblingIRI == '') {
                     echo "<ul>";
                 } else {
                     echo "<ul>";
                     $i=0;
-                    foreach ($data_sibling as $row) {
-                        foreach ($data_sibling->fields() as $field) {
+                    foreach ($data_siblingIRI as $rowSiblingIRI) {
+                        foreach ($data_siblingIRI->fields() as $field) {
                             echo "<li>";
-                            if (strlen($row[$field]) > 20)
-                                $row[$field] = substr($row[$field], 0, 15) . '...';
-                            echo '<a href="?entity='.urlencode($siblingIRI[$i]).'">'.str_replace('http://www.dbpedia.org/resource/', "",$row[$field]).'</a>';
+                            $data_sibling = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
+                                        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+                                        SELECT ?siblingname
+                                           WHERE {  
+                                              <' .$siblingIRI[$i] . '> foaf:name ?siblingname
+                                           }LIMIT 1');
+
+                            foreach ($data_sibling as $row) {
+                                foreach ($data_sibling->fields() as $field) {
+                                    if (strlen($row[$field]) > 20)
+                                        $row[$field] = substr($row[$field], 0, 15) . '...';
+                                    echo '<a href="?entity=' . urlencode($siblingIRI[$i]) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $row[$field]) . '</a>';
+                                }
+                            }
                             $i++;
                             echo "</li>";
                         }
@@ -241,7 +244,7 @@
                     foreach ($data_name as $row) {
                         foreach ($data_name->fields() as $field) {
                             echo "<li>";
-                            print "<a style='font-style: italic'>$row[$field]</a>";
+                            print "<a style='font-weight: bold'>$row[$field]</a>";
                         }
                     }
                 }else{
@@ -250,20 +253,12 @@
                 }
 
                 // spouse
-                $data_spouse = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
-                                        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-                                        SELECT ?name
-                                            WHERE {
-                                                <' . $selected_val . '> fam:isSpouseOf ?sbj.
-                                                ?sbj foaf:name ?name
-                                            } LIMIT 1
-                                            ');
                 $data_spouseIRI = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-                                        SELECT ?spouseIRI
+                                        SELECT DISTINCT ?spouseIRI
                                             WHERE {
                                                 <' . $selected_val . '> fam:isSpouseOf ?spouseIRI.
-                                                ?sbj foaf:name ?name
+                                                ?spouseIRI foaf:name ?name
                                             } LIMIT 1');
                 $i=0;
                 foreach ($data_spouseIRI as $rowSpouseIRI) {
@@ -273,33 +268,35 @@
                     }
                 }
 
-                if (!isset($data_spouse) || $data_spouse == '') {
+                if (!isset($data_spouseIRI) || $data_spouseIRI == '') {
                     echo "-❤-<a>Spouse Unknown</a>";
                 } else {
                     $i=0;
-                    foreach ($data_spouse as $row) {
-                        foreach ($data_spouse->fields() as $field) {
+                    foreach ($data_spouseIRI as $rowSpouseIRI) {
+                        foreach ($data_spouseIRI->fields() as $field) {
                             echo "-❤-";
-                            echo '<a href="?entity='.urlencode($spouseIRI[$i]).'">'.str_replace('http://www.dbpedia.org/resource/', "",$row[$field]).'</a>';
-                            $spouseName = $row[$field];
-                            //get child data
-                            $data_child = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
+                            $data_spouse = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-                                        SELECT ?childName
+                                        SELECT ?name
                                             WHERE {
-                                                    <' . $selected_val . '> fam:hasChild ?childIRI.
-                                                    <' . $spouseIRI[$i] . '> fam:hasChild ?childIRI.
-                                                    ?childIRI foaf:name ?childName
-                                                 }LIMIT 5');
+                                                <' . $spouseIRI[$i] . '> foaf:name ?name
+                                            } LIMIT 1
+                                            ');
+                            foreach ($data_spouse as $row) {
+                                foreach ($data_spouse->fields() as $field) {
+                                    echo '<a href="?entity=' . urlencode($spouseIRI[$i]) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $row[$field]) . '</a>';
+                                }
+                            }
+                            //get child data
 
                             $data_childIRI = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-                                        SELECT ?childIRI
+                                        SELECT DISTINCT ?childIRI
                                            WHERE {  
                                               <' . $selected_val . '> fam:hasChild ?childIRI.
                                               <' .$spouseIRI[$i] . '> fam:hasChild ?childIRI.
                                               ?childIRI foaf:name ?childName
-                                            }LIMIT 5');
+                                            }LIMIT 10');
                             $i++;
                             $j=0;
                             foreach ($data_childIRI as $rowChildIRI) {
@@ -309,9 +306,9 @@
                                 }
                             }
                             $flagChild = 0;
-                            if (isset($data_child)) {
-                                foreach ($data_child as $rowChild) {
-                                    foreach ($data_child->fields() as $field) {
+                            if (isset($data_childIRI)) {
+                                foreach ($data_childIRI as $rowChild) {
+                                    foreach ($data_childIRI->fields() as $field) {
                                         if($rowChild[$field] == ''){
                                             $flagChild = 0; //tidak punya anak
                                         }else $flagChild = 1;
@@ -320,14 +317,23 @@
                                 if($flagChild == 1){
                                     $cc=0;
                                     echo "<ul>";
-                                    foreach ($data_child as $rowChild) {
-                                        foreach ($data_child->fields() as $field) {
-
+                                    foreach ($data_childIRI as $rowChildIRI) {
+                                        foreach ($data_childIRI->fields() as $field) {
                                             if(isset($childIRI[$cc])) {
                                                 echo "<li>";
-                                                if (strlen($rowChild[$field]) > 20)
-                                                    $rowChild[$field] = substr($rowChild[$field], 0, 15) . '...';
-                                                echo '<a href="?entity='.urlencode($childIRI[$cc]).'">'.str_replace('http://www.dbpedia.org/resource/', "",$rowChild[$field]).'</a>';
+                                                $data_child = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
+                                                    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+                                                    SELECT ?childName
+                                                        WHERE {
+                                                    <' . $childIRI[$cc] . '> foaf:name ?childName
+                                                 }LIMIT 1');
+                                                foreach ($data_child as $rowChild) {
+                                                    foreach ($data_child->fields() as $field) {
+                                                        if (strlen($rowChild[$field]) > 20)
+                                                            $rowChild[$field] = substr($rowChild[$field], 0, 15) . '...';
+                                                        echo '<a href="?entity='.urlencode($childIRI[$cc]).'">'.str_replace('http://www.dbpedia.org/resource/', "",$rowChild[$field]).'</a>';
+                                                    }
+                                                }
 
                                             //getChildInLaw
                                             $data_ChildInLaw = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
@@ -359,30 +365,27 @@
                                                         echo "-❤-";
                                                         echo '<a href="?entity=' . urlencode($childInLawIRI) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $rowChildInLaw[$field]) . '</a>';
                                                         $childInLawName = $rowChildInLaw[$field];
+
                                                         //getGrandChild
-                                                        $data_grandchild = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
-                                                        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-                                                        SELECT ?grandChildName
-                                                        WHERE {
-                                                                <' . $childInLawIRI . '> fam:hasChild ?grandchildIRI.
-                                                              ?grandchildIRI foaf:name ?grandChildName
-                                                             }LIMIT 1');
                                                         $data_grandchildIRI = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
-                                                        SELECT ?grandchildIRI
+                                                        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+                                                        PREFIX dbp: <http://dbpedia.org/property/>
+                                                        SELECT DISTINCT ?grandchildIRI
                                                         WHERE {  
-                                                          <' . $childInLawIRI . '> fam:hasChild ?grandchildIRI
-                                                        }LIMIT 1');
+                                                          <' . $childInLawIRI . '> dbp:issue ?grandchildIRI.
+                                                          ?grandchildIRI foaf:name ?name
+                                                        }');
                                                         $m=0;
                                                         foreach ($data_grandchildIRI as $rowgrandChildIRI) {
                                                             foreach ($data_grandchildIRI->fields() as $field) {
-                                                                $data_grandchildIRI[$m] = $rowgrandChildIRI[$field];
+                                                                $grandchildIRI[$m] = $rowgrandChildIRI[$field];
                                                                 $m++;
                                                             }
                                                         }
                                                         $flagGrandChild=0;
-                                                        if (isset($data_grandchild)) {
-                                                            foreach ($data_grandchild as $rowGC) {
-                                                                foreach ($data_grandchild->fields() as $field) {
+                                                        if (isset($data_grandchildIRI)) {
+                                                            foreach ($data_grandchildIRI as $rowGC) {
+                                                                foreach ($data_grandchildIRI->fields() as $field) {
                                                                     if ($rowGC[$field] == '') {
                                                                         $flagGrandChild = 0; //tidak punya cucu
                                                                     } else $flagGrandChild = 1;
@@ -391,10 +394,105 @@
                                                             if($flagGrandChild==1){
                                                                 $n=0;
                                                                 echo "<ul>";    //garis vertikal cucu
-                                                                foreach ($data_grandchild as $rowGC) {
-                                                                    foreach ($data_grandchild->fields() as $field) {
+                                                                foreach ($data_grandchildIRI as $rowgrandChildIRI) {
+                                                                    foreach ($data_grandchildIRI->fields() as $field) {
                                                                         echo "<li>";
-                                                                        echo '<a href="?entity=' . urlencode($data_grandchildIRI[$n]) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $rowGC[$field]) . '</a>';
+                                                                        $data_grandchild = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
+                                                                        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+                                                                        SELECT ?grandChildName
+                                                                        WHERE {
+                                                                                <' . $grandchildIRI[$n] . '> foaf:name ?grandChildName
+                                                                             }LIMIT 1');
+                                                                        foreach ($data_grandchild as $rowGC) {
+                                                                            foreach ($data_grandchild->fields() as $field) {
+                                                                                if (strlen($rowGC[$field]) > 20)
+                                                                                    $rowGC[$field] = substr($rowGC[$field], 0, 15) . '...';
+                                                                                echo '<a href="?entity=' . urlencode($grandchildIRI[$n]) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $rowGC[$field]) . '</a>';
+                                                                            }
+                                                                        }
+                                                                        //getGrandChildInLaw
+                                                                        $data_GrandChildInLaw = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
+                                                                                PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+                                                                                SELECT  ?name
+                                                                                WHERE {
+                                                                                    <' . $grandchildIRI[$n] . '> fam:isSpouseOf ?sbj.
+                                                                                    ?sbj foaf:name ?name
+                                                                                }LIMIT 1');
+                                                                        $data_GrandChildInLawIRI = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
+                                                                                PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+                                                                                SELECT  ?sbj
+                                                                                WHERE {
+                                                                                    <' . $grandchildIRI[$n] . '> fam:isSpouseOf ?sbj.
+                                                                                    ?sbj foaf:name ?name
+                                                                                }LIMIT 1');
+                                                                        foreach ($data_GrandChildInLawIRI as $rowGrandChildInLawIRI) {
+                                                                            foreach ($data_GrandChildInLawIRI->fields() as $field) {
+                                                                                $grandChildInLawIRI = $rowGrandChildInLawIRI[$field];
+                                                                            }
+                                                                        }
+                                                                        if (!isset($data_GrandChildInLawIRI) || $data_GrandChildInLawIRI == '') {
+                                                                            echo "-❤-<a>?</a>";
+                                                                        }else if(isset($data_GrandChildInLawIRI)){
+                                                                            foreach ($data_GrandChildInLaw as $rowGrandChildInLaw) {
+                                                                                foreach ($data_GrandChildInLaw->fields() as $field) {
+                                                                                    echo "-❤-";
+                                                                                    echo '<a href="?entity=' . urlencode($grandChildInLawIRI) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $rowGrandChildInLaw[$field]) . '</a>';
+
+                                                                                    //getGreatGrandChild
+                                                                                    $data_greatGrandChildIRI = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
+                                                                                        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+                                                                                        PREFIX dbp: <http://dbpedia.org/property/>
+                                                                                        SELECT DISTINCT ?greatgrandchildIRI
+                                                                                        WHERE {  
+                                                                                          <' . $grandChildInLawIRI . '> fam:hasChild ?greatgrandchildIRI.
+                                                                                          <' . $grandchildIRI[$n] . '> fam:hasChild ?greatgrandchildIRI.
+                                                                                          ?greatgrandchildIRI foaf:name ?name
+                                                                                        }');
+                                                                                    $m=0;
+                                                                                    foreach ($data_greatGrandChildIRI as $rowgreatGrandChildIRI) {
+                                                                                        foreach ($data_greatGrandChildIRI->fields() as $field) {
+                                                                                            $greatGrandChildIRI[$m] = $rowgreatGrandChildIRI[$field];
+                                                                                            $m++;
+                                                                                        }
+                                                                                    }
+                                                                                    $flagGreatGrandChild = 0;
+                                                                                    if(isset($data_greatGrandChildIRI)){
+                                                                                        foreach ($data_greatGrandChildIRI as $rowGGC) {
+                                                                                            foreach ($data_greatGrandChildIRI->fields() as $field) {
+                                                                                                if ($rowGGC[$field] == '') {
+                                                                                                    $flagGreatGrandChild = 0; //tidak punya cicit
+                                                                                                } else $flagGreatGrandChild = 1;
+                                                                                            }
+                                                                                        }
+                                                                                        if($flagGreatGrandChild == 1){
+                                                                                            $p=0;
+                                                                                            echo "<ul>";
+                                                                                            foreach ($data_greatGrandChildIRI as $rowGreatGrandChildIRI) {
+                                                                                                foreach ($data_greatGrandChildIRI->fields() as $field) {
+                                                                                                    echo "<li>";
+                                                                                                    $data_greatGrandChild = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
+                                                                                                        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+                                                                                                        SELECT ?name
+                                                                                                        WHERE {  
+                                                                                                          <' . $greatGrandChildIRI[$p] . '> foaf:name ?name
+                                                                                                        }LIMIT 1');
+                                                                                                    foreach ($data_greatGrandChild as $rowGGC) {
+                                                                                                        foreach ($data_greatGrandChild->fields() as $field) {
+                                                                                                            if (strlen($rowGGC[$field]) > 20)
+                                                                                                                $rowGGC[$field] = substr($rowGGC[$field], 0, 15) . '...';
+                                                                                                            echo '<a href="?entity=' . urlencode($greatGrandChildIRI[$p]) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $rowGGC[$field]) . '</a>';
+                                                                                                        }
+                                                                                                    }
+                                                                                                    $p++;
+                                                                                                    echo "</li>";
+                                                                                                }
+                                                                                            }
+                                                                                            echo "</ul>"; //tutup cicit
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
                                                                         $n++;
                                                                     }
                                                                 }
