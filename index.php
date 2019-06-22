@@ -34,8 +34,6 @@
     require 'vendor/autoload.php';
     require_once("sparqllib.php");
 
-    $graph = new EasyRdf_Graph();
-    $graph->parseFile('ihero.rdf', 'rdf');
     $data = sparql_get("localhost:3030/brits/query",
                         "PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -47,17 +45,7 @@
                         ?s rdf:type foaf:Person.
   						?s foaf:name ?name
                         }");
-    $name = sparql_get("localhost:3030/brits/query",
-        "PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
-                        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-                        PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-                        
-                        SELECT DISTINCT ?name
-                        WHERE {
-                        ?s rdf:type foaf:Person.
-                        ?s foaf:name ?name
-                        }
-                        LIMIT 100");
+
     if (!isset($data)) {
         print "<p>Error: " . sparql_errno() . ": " . sparql_error() . "</p>";
     }
@@ -72,9 +60,11 @@
                         <select class="input-group-field" name="entity">
                             <?php
                             foreach ($data as $row) {
-                                foreach ($data->fields() as $name) { ?>
+                                foreach ($data->fields() as $name) {
+                                    ?>
                                     <option selected value="<?= $row[$name] ?>"><?= $row[$name] ?></option>
-                                <?php }
+                                <?php
+                                }
                             } ?>
                         </select>
                         <div class="input-group-button">
@@ -113,7 +103,7 @@
                         print "<h3>$row[$field]</h3>";
                     }
                 }
-                echo "<div class=\"tree\" style=\"margin-left:0px\">";
+                echo "<div class=\"tree\" style=\"position: center\">";
                 // new -> hasFather
                 $data_father = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -190,7 +180,7 @@
                     }
                 }
 
-                // new -> hasSibling
+                //hasSibling
                 $data_siblingIRI = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                         PREFIX foaf: <http://xmlns.com/foaf/0.1/>
                                         SELECT DISTINCT ?siblingIRI

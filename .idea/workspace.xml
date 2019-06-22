@@ -25,11 +25,20 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/foundation/css/app.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="19">
+              <caret line="431" column="15" selection-start-line="431" selection-start-column="15" selection-end-line="431" selection-end-column="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="228" column="52" lean-forward="true" selection-start-line="228" selection-start-column="52" selection-end-line="228" selection-end-column="52" />
+            <state relative-caret-position="408">
+              <caret line="138" column="31" lean-forward="true" selection-start-line="138" selection-start-column="31" selection-end-line="138" selection-end-column="31" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
@@ -42,11 +51,9 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>req</find>
       <find>easyrdf</find>
       <find>child</find>
       <find>head</find>
-      <find>row</find>
       <find>row {</find>
       <find>font</find>
       <find>font-size</find>
@@ -72,6 +79,8 @@
       <find>foaf:name</find>
       <find>rdfs:label</find>
       <find>foaf:givenName</find>
+      <find>row</find>
+      <find>.row</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -82,8 +91,8 @@
       <list>
         <option value="$PROJECT_DIR$/vendor/easyrdf/easyrdf/lib/EasyRdf/Graph.php" />
         <option value="$PROJECT_DIR$/indexbackup.php" />
-        <option value="$PROJECT_DIR$/foundation/css/app.css" />
         <option value="$PROJECT_DIR$/style.css" />
+        <option value="$PROJECT_DIR$/foundation/css/app.css" />
         <option value="$PROJECT_DIR$/index.php" />
       </list>
     </option>
@@ -120,17 +129,6 @@
               <item name="web-tree-of-heroes" type="b2602c69:ProjectViewProjectNode" />
               <item name="web-tree-of-heroes" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="web-tree-of-heroes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="web-tree-of-heroes" type="462c0819:PsiDirectoryNode" />
-              <item name="foundation" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="web-tree-of-heroes" type="b2602c69:ProjectViewProjectNode" />
-              <item name="web-tree-of-heroes" type="462c0819:PsiDirectoryNode" />
-              <item name="foundation" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -142,7 +140,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -222,18 +220,19 @@
       <workItem from="1560875960615" duration="3887000" />
       <workItem from="1560952615214" duration="5969000" />
       <workItem from="1561019506263" duration="2765000" />
-      <workItem from="1561035881559" duration="8494000" />
+      <workItem from="1561035881559" duration="9899000" />
+      <workItem from="1561128470636" duration="7662000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="179206000" />
+    <option name="totallyTimeSpent" value="188273000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.2344932" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2344932" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -326,8 +325,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/foundation/css/app.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1759">
-          <caret line="1991" column="16" selection-start-line="1991" selection-start-column="16" selection-end-line="1991" selection-end-column="16" />
+        <state relative-caret-position="19">
+          <caret line="431" column="15" selection-start-line="431" selection-start-column="15" selection-end-line="431" selection-end-column="15" />
         </state>
       </provider>
     </entry>
@@ -340,8 +339,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="228" column="52" lean-forward="true" selection-start-line="228" selection-start-column="52" selection-end-line="228" selection-end-column="52" />
+        <state relative-caret-position="408">
+          <caret line="138" column="31" lean-forward="true" selection-start-line="138" selection-start-column="31" selection-end-line="138" selection-end-column="31" />
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
