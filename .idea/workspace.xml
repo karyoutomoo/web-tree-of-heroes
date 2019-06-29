@@ -28,7 +28,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/foundation/css/app.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
+            <state relative-caret-position="7327">
               <caret line="431" column="15" selection-start-line="431" selection-start-column="15" selection-end-line="431" selection-end-column="15" />
             </state>
           </provider>
@@ -37,10 +37,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="138" column="31" lean-forward="true" selection-start-line="138" selection-start-column="31" selection-end-line="138" selection-end-column="31" />
+            <state relative-caret-position="272">
+              <caret line="285" column="44" selection-start-line="285" selection-start-column="44" selection-end-line="285" selection-end-column="44" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -51,8 +52,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>easyrdf</find>
-      <find>child</find>
       <find>head</find>
       <find>row {</find>
       <find>font</find>
@@ -76,11 +75,13 @@
       <find>jj++</find>
       <find>$i++</find>
       <find>DISTINCT</find>
-      <find>foaf:name</find>
       <find>rdfs:label</find>
       <find>foaf:givenName</find>
       <find>row</find>
       <find>.row</find>
+      <find>dbpprop-id:name|dbp:name</find>
+      <find>PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</find>
+      <find>foaf:name</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -111,7 +112,7 @@
       <path value="$PROJECT_DIR$/vendor/rdfapi-php/test" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
     <option name="width" value="1385" />
@@ -122,6 +123,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -133,7 +135,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -221,18 +222,26 @@
       <workItem from="1560952615214" duration="5969000" />
       <workItem from="1561019506263" duration="2765000" />
       <workItem from="1561035881559" duration="9899000" />
-      <workItem from="1561128470636" duration="7662000" />
+      <workItem from="1561128470636" duration="9093000" />
+      <workItem from="1561382490979" duration="628000" />
+      <workItem from="1561546361621" duration="1186000" />
+      <workItem from="1561604993757" duration="1142000" />
+      <workItem from="1561607920144" duration="2676000" />
+      <workItem from="1561619081414" duration="3090000" />
+      <workItem from="1561638661912" duration="2931000" />
+      <workItem from="1561787567926" duration="2162000" />
+      <workItem from="1561794046675" duration="2474000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="188273000" />
+    <option name="totallyTimeSpent" value="205993000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1366" height="768" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2344932" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2585288" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -323,13 +332,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/foundation/css/app.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="431" column="15" selection-start-line="431" selection-start-column="15" selection-end-line="431" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -337,12 +339,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/foundation/css/app.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7327">
+          <caret line="431" column="15" selection-start-line="431" selection-start-column="15" selection-end-line="431" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="138" column="31" lean-forward="true" selection-start-line="138" selection-start-column="31" selection-end-line="138" selection-end-column="31" />
+        <state relative-caret-position="272">
+          <caret line="285" column="44" selection-start-line="285" selection-start-column="44" selection-end-line="285" selection-end-column="44" />
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
           </folding>
         </state>
