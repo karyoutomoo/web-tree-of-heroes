@@ -45,7 +45,7 @@
                         SELECT DISTINCT ?s
                         WHERE {
                         ?s rdf:type dbo:Person.
-  						?s foaf:name|dbpprop-id:name|rdfs:label ?name
+  						?s rdfs:label ?name
                         }");
 
     if (!isset($data)) {
@@ -82,7 +82,7 @@
             <?php
             if (isset($_GET['entity'])) {
                 echo "
-                <div class=" . "callout " . " style=" . "padding-bottom:700px" . ">
+                <div class=" . "callout " . " style=" . "padding-bottom:1000px" . ">
                 <h6 class=" . "subheader" . ">DESKRIPSI INSTANCE</h6>";
 
                 $selected_val = $_GET['entity'];
@@ -95,7 +95,7 @@
                                         PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                                         SELECT ?name
                                             WHERE {
-                                                <' . $selected_val . '> foaf:name|dbpprop-id:name|rdfs:label ?name
+                                                <' . $selected_val . '> rdfs:label ?name
                                             }
                                             LIMIT 1');
                 if (!isset($data_name)) {
@@ -117,8 +117,7 @@
                                         SELECT ?name
                                             WHERE {
                                                 <' . $selected_val . '> fam:hasParent|dbpedia-owl:parent ?fatherIRI.
-                                                ?fatherIRI foaf:name|dbpprop-id:name|rdfs:label ?name.
-  												?fatherIRI foaf:gender "male"@en
+                                                ?fatherIRI rdfs:label ?name
                                             }
                                             LIMIT 1');
                 $data_fatherIRI = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
@@ -130,10 +129,10 @@
                                         SELECT ?fatherIRI
                                             WHERE {
                                                 <' . $selected_val . '> fam:hasParent|dbpedia-owl:parent ?fatherIRI.
-                                                ?fatherIRI foaf:name|dbpprop-id:name|rdfs:label ?name.
-  												?fatherIRI foaf:gender "male"@en
+                                                ?fatherIRI rdfs:label ?name
                                             }
                                             LIMIT 1');
+                $fatherIRI = "";
                 foreach ($data_fatherIRI as $row) {
                     foreach ($data_fatherIRI->fields() as $field) {
                         $fatherIRI = $row[$field];
@@ -147,7 +146,12 @@
                         foreach ($data_father->fields() as $field) {
                             echo "<ul>";
                             echo "<li>";
-                            echo '<a href="?entity='.urlencode($fatherIRI).'">'.str_replace('http://www.dbpedia.org/resource/', "",$row[$field]).'</a>';
+                            if($row[$field] != ''){
+                                echo '<a href="?entity='.urlencode($fatherIRI).'">'.str_replace('http://www.dbpedia.org/resource/', "",$row[$field]).'</a>';
+                            }
+                            else {
+                                echo '<a href="?entity='.urlencode($fatherIRI).'">'.str_replace('http://www.dbpedia.org/resource/', "",$fatherIRI).'</a>';
+                            }
                             $father = 1;
                             echo "-❤-";
                         }
@@ -162,8 +166,8 @@
                                         SELECT ?name
                                             WHERE {
                                                 <' . $selected_val . '> fam:hasParent|dbpedia-owl:parent ?motherIRI.
-                                                ?motherIRI foaf:name|dbpprop-id:name|rdfs:label ?name.
-  												?motherIRI foaf:gender "female"@en
+                                                ?motherIRI rdfs:label ?name.
+  												FILTER(?motherIRI != <' . $fatherIRI . '>)
                                             }
                                             LIMIT 1');
                 $data_motherIRI = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
@@ -173,8 +177,8 @@
                                         SELECT ?motherIRI
                                             WHERE {
                                                 <' . $selected_val . '> fam:hasParent|dbpedia-owl:parent ?motherIRI.
-                                                ?motherIRI foaf:name|dbpprop-id:name|rdfs:label ?name.
-                                                ?motherIRI foaf:gender "female"@en
+                                                ?motherIRI rdfs:label ?name.
+                                                FILTER(?motherIRI != <' . $fatherIRI . '>)
                                             }');
                 foreach ($data_motherIRI as $row) {
                     foreach ($data_motherIRI->fields() as $field) {
@@ -190,7 +194,11 @@
                                 echo "<ul>";
                                 echo "<li>";
                             }
-                            echo '<a href="?entity='.urlencode($motherIRI).'">'.str_replace('http://www.dbpedia.org/resource/', "",$row[$field]).'</a>';
+                            if($row[$field] != ''){
+                                echo '<a href="?entity='.urlencode($motherIRI).'">'.str_replace('http://www.dbpedia.org/resource/', "",$row[$field]).'</a>';
+                            }else{
+                                echo '<a href="?entity='.urlencode($motherIRI).'">'.str_replace('http://www.dbpedia.org/resource/', "",$motherIRI).'</a>';
+                            }
                         }
                     }
                 }
@@ -201,12 +209,13 @@
                                         PREFIX dbpprop-id: <http://id.dbpedia.org/property/>
                                         SELECT DISTINCT ?siblingIRI
                                            WHERE {  
-                                              <' . $selected_val . '> fam:hasParent ?parentIRI.
-                                               ?parentIRI foaf:name|dbpprop-id:name|rdfs:label ?name.
-                                               ?parentIRI fam:hasChild ?siblingIRI.
-                                               ?siblingIRI foaf:name|dbpprop-id:name|rdfs:label ?siblingname
+                                              <' . $selected_val . '> fam:hasParent ?parent1IRI.
+                                              <' . $selected_val . '> fam:hasParent ?parent2IRI.
+                                               ?parent1IRI fam:hasChild ?siblingIRI.
+                                               ?parent2IRI fam:hasChild ?siblingIRI.
                                                 FILTER(?siblingIRI != <' . $selected_val . '>)
-                                           }LIMIT 3');
+                                               FILTER(?parent1IRI != ?parent2IRI)
+                                           }');
 
                 $i=0;
                 foreach ($data_siblingIRI as $rowSiblingIRI) {
@@ -224,12 +233,13 @@
                     foreach ($data_siblingIRI as $rowSiblingIRI) {
                         foreach ($data_siblingIRI->fields() as $field) {
                             echo "<li>";
+                            $hasName = 0;
                             $data_sibling = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                         PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                                         PREFIX dbpprop-id: <http://id.dbpedia.org/property/>
                                         SELECT ?siblingname
                                            WHERE {  
-                                              <' .$siblingIRI[$i] . '> foaf:name|dbpprop-id:name|rdfs:label ?siblingname
+                                              <' .$siblingIRI[$i] . '> rdfs:label ?siblingname
                                            }LIMIT 1');
 
                             foreach ($data_sibling as $row) {
@@ -237,7 +247,13 @@
                                     if (strlen($row[$field]) > 20)
                                         $row[$field] = substr($row[$field], 0, 15) . '...';
                                     echo '<a href="?entity=' . urlencode($siblingIRI[$i]) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $row[$field]) . '</a>';
+                                    $hasName = 1;
                                 }
+                            }
+                            if ($hasName==0){
+                                if (strlen($siblingIRI[$i]) > 20)
+                                    $siblingIRI[$i] = substr($siblingIRI[$i], 31, 15) . '...';
+                                echo '<a ' . urlencode($siblingIRI[$i]) . '>' . $siblingIRI[$i] . '</a>';
                             }
                             $i++;
                             echo "</li>";
@@ -266,7 +282,7 @@
                                         SELECT DISTINCT ?spouseIRI
                                             WHERE {
                                                 <' . $selected_val . '> fam:isSpouseOf ?spouseIRI.
-                                                ?spouseIRI foaf:name|dbpprop-id:name|foaf:name|rdfs:label ?name
+                                                ?spouseIRI rdfs:label ?name
                                             } ');
                 $i=0;
                 foreach ($data_spouseIRI as $rowSpouseIRI) {
@@ -291,18 +307,25 @@
                                 }
                             }
                             echo "-❤-";
+                            $hasName = 0;
                             $data_spouse = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                         PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                                         PREFIX dbpprop-id: <http://id.dbpedia.org/property/>
                                         SELECT ?name
                                             WHERE {
-                                                <' . $spouseIRI[$i] . '> foaf:name|dbpprop-id:name|foaf:name|rdfs:label ?name
+                                                <' . $spouseIRI[$i] . '> rdfs:label ?name
                                             } LIMIT 1
                                             ');
                             foreach ($data_spouse as $row) {
                                 foreach ($data_spouse->fields() as $field) {
                                     echo '<a href="?entity=' . urlencode($spouseIRI[$i]) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $row[$field]) . '</a>';
+                                    $hasName = 1;
                                 }
+                            }
+                            if ($hasName==0){
+                                if (strlen($spouseIRI[$i]) > 20)
+                                    $spouseIRI[$i] = substr($spouseIRI[$i], 31, 15) . '...';
+                                echo '<a ' . urlencode($spouseIRI[$i]) . '>' . $spouseIRI[$i] . '</a>';
                             }
                             //get child data
 
@@ -312,8 +335,7 @@
                                         SELECT DISTINCT ?childIRI
                                            WHERE {  
                                               <' . $selected_val . '> fam:hasChild ?childIRI.
-                                              <' .$spouseIRI[$i] . '> fam:hasChild ?childIRI.
-                                              ?childIRI foaf:name|dbpprop-id:name|rdfs:label ?childName
+                                              <' .$spouseIRI[$i] . '> fam:hasChild ?childIRI
                                             }LIMIT 10');
                             $i++;
                             $j=0;
@@ -339,31 +361,30 @@
                                         foreach ($data_childIRI->fields() as $field) {
                                             if(isset($childIRI[$cc])) {
                                                 echo "<li>";
+                                                $hasName = 0;
                                                 $data_child = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                                     PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                                                     PREFIX dbpprop-id: <http://id.dbpedia.org/property/>
                                                     SELECT ?childName
                                                         WHERE {
-                                                    <' . $childIRI[$cc] . '> foaf:name|dbpprop-id:name|rdfs:label ?childName
+                                                    <' . $childIRI[$cc] . '> rdfs:label ?childName
                                                  }LIMIT 1');
                                                 foreach ($data_child as $rowChild) {
                                                     foreach ($data_child->fields() as $field) {
                                                         if (strlen($rowChild[$field]) > 20)
                                                             $rowChild[$field] = substr($rowChild[$field], 0, 15) . '...';
                                                         echo '<a href="?entity='.urlencode($childIRI[$cc]).'">'.str_replace('http://www.dbpedia.org/resource/', "",$rowChild[$field]).'</a>';
+                                                        $hasName = 1;
                                                     }
+                                                }
+                                                if ($hasName==0){
+                                                    if (strlen($childIRI[$cc]) > 20)
+                                                        $childIRI[$cc] = substr($childIRI[$cc], 31, 15) . '...';
+                                                    echo '<a ' . urlencode($childIRI[$cc]) . '>' . $childIRI[$cc] . '</a>';
                                                 }
 
                                             //getChildInLaw
-                                            $data_ChildInLaw = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
-                                            PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
-                                            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-                                            PREFIX dbpprop-id: <http://id.dbpedia.org/property/>
-                                            SELECT  ?name
-                                            WHERE {
-                                                <' . $childIRI[$cc] . '> fam:isSpouseOf ?sbj.
-                                                ?sbj foaf:name|dbpprop-id:name|rdfs:label ?name
-                                            }LIMIT 1');
+
                                             $data_ChildInLawIRI = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                             PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
                                             PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -371,7 +392,7 @@
                                             SELECT  ?sbj
                                             WHERE {
                                                 <' . $childIRI[$cc] . '> fam:isSpouseOf ?sbj.
-                                                ?sbj foaf:name|dbpprop-id:name|rdfs:label ?name
+                                                ?sbj rdfs:label ?name
                                             }LIMIT 1');
                                             $cc++;
                                             }
@@ -380,15 +401,32 @@
                                                     $childInLawIRI = $rowChildInLawIRI[$field];
                                                 }
                                             }
-                                            if (!isset($data_ChildInLaw) || $data_ChildInLaw == '') {
+                                            if (!isset($data_ChildInLawIRI) || $data_ChildInLawIRI == '') {
                                                 echo "-❤-<a>?</a>";
-                                            }else if(isset($data_ChildInLaw)){
-                                                foreach ($data_ChildInLaw as $rowChildInLaw) {
-                                                    foreach ($data_ChildInLaw->fields() as $field) {
+                                            }else if(isset($data_ChildInLawIRI)){
+                                                foreach ($data_ChildInLawIRI as $rowChildInLawIRI) {
+                                                    foreach ($data_ChildInLawIRI->fields() as $field) {
                                                         echo "-❤-";
-                                                        echo '<a href="?entity=' . urlencode($childInLawIRI) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $rowChildInLaw[$field]) . '</a>';
-                                                        $childInLawName = $rowChildInLaw[$field];
-
+                                                        $hasName = 0;
+                                                        $data_ChildInLaw = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
+                                                        PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
+                                                        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                                                        PREFIX dbpprop-id: <http://id.dbpedia.org/property/>
+                                                        SELECT  ?name
+                                                        WHERE {
+                                                            <' . $childInLawIRI . '> rdfs:label ?name
+                                                        }LIMIT 1');
+                                                        foreach ($data_ChildInLaw as $rowChildInLaw) {
+                                                            foreach ($data_ChildInLaw->fields() as $field) {
+                                                                echo '<a href="?entity=' . urlencode($childInLawIRI) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $rowChildInLaw[$field]) . '</a>';
+                                                                $hasName =1;
+                                                            }
+                                                        }
+                                                        if ($hasName==0){
+                                                            if (strlen($rowChildInLaw[$field]) > 20)
+                                                                $spouseIRI[$i] = substr($rowChildInLaw[$field], 31, 15) . '...';
+                                                            echo '<a ' . urlencode($rowChildInLaw[$field]) . '>' . $rowChildInLaw[$field] . '</a>';
+                                                        }
                                                         //getGrandChild
                                                         $data_grandchildIRI = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                                         PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
@@ -397,8 +435,7 @@
                                                         PREFIX dbp: <http://dbpedia.org/property/>
                                                         SELECT DISTINCT ?grandchildIRI
                                                         WHERE {  
-                                                          <' . $childInLawIRI . '> dbp:issue ?grandchildIRI.
-                                                          ?grandchildIRI foaf:name|dbpprop-id:name|rdfs:label ?name
+                                                          <' . $childInLawIRI . '> dbp:issue ?grandchildIRI
                                                         }');
                                                         $m=0;
                                                         foreach ($data_grandchildIRI as $rowgrandChildIRI) {
@@ -422,36 +459,35 @@
                                                                 foreach ($data_grandchildIRI as $rowgrandChildIRI) {
                                                                     foreach ($data_grandchildIRI->fields() as $field) {
                                                                         echo "<li>";
+                                                                        $hasName = 0;
                                                                         $data_grandchild = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                                                         PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                                                                         PREFIX dbpprop-id: <http://id.dbpedia.org/property/>
                                                                         SELECT ?grandChildName
                                                                         WHERE {
-                                                                                <' . $grandchildIRI[$n] . '> foaf:name|dbpprop-id:name|rdfs:label ?grandChildName
+                                                                                <' . $grandchildIRI[$n] . '> rdfs:label ?grandChildName
                                                                              }LIMIT 1');
                                                                         foreach ($data_grandchild as $rowGC) {
                                                                             foreach ($data_grandchild->fields() as $field) {
                                                                                 if (strlen($rowGC[$field]) > 20)
                                                                                     $rowGC[$field] = substr($rowGC[$field], 0, 15) . '...';
                                                                                 echo '<a href="?entity=' . urlencode($grandchildIRI[$n]) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $rowGC[$field]) . '</a>';
+                                                                                $hasName = 1;
                                                                             }
                                                                         }
+                                                                        if ($hasName==0){
+                                                                            if (strlen($grandchildIRI[$n]) > 20)
+                                                                                $grandchildIRI[$n] = substr($grandchildIRI[$n], 31, 15) . '...';
+                                                                            echo '<a ' . urlencode($grandchildIRI[$n]) . '>' . $grandchildIRI[$n] . '</a>';
+                                                                        }
                                                                         //getGrandChildInLaw
-                                                                        $data_GrandChildInLaw = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
-                                                                                PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-                                                                                PREFIX dbpprop-id: <http://id.dbpedia.org/property/>
-                                                                                SELECT  ?name
-                                                                                WHERE {
-                                                                                    <' . $grandchildIRI[$n] . '> fam:isSpouseOf ?sbj.
-                                                                                    ?sbj foaf:name|dbpprop-id:name|rdfs:label ?name
-                                                                                }LIMIT 1');
                                                                         $data_GrandChildInLawIRI = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                                                                 PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                                                                                 PREFIX dbpprop-id: <http://id.dbpedia.org/property/>
                                                                                 SELECT  ?sbj
                                                                                 WHERE {
                                                                                     <' . $grandchildIRI[$n] . '> fam:isSpouseOf ?sbj.
-                                                                                    ?sbj foaf:name|dbpprop-id:name|rdfs:label ?name
+                                                                                    ?sbj rdfs:label ?name
                                                                                 }LIMIT 1');
                                                                         foreach ($data_GrandChildInLawIRI as $rowGrandChildInLawIRI) {
                                                                             foreach ($data_GrandChildInLawIRI->fields() as $field) {
@@ -461,10 +497,30 @@
                                                                         if (!isset($data_GrandChildInLawIRI) || $data_GrandChildInLawIRI == '') {
                                                                             echo "-❤-<a>?</a>";
                                                                         }else if(isset($data_GrandChildInLawIRI)){
-                                                                            foreach ($data_GrandChildInLaw as $rowGrandChildInLaw) {
-                                                                                foreach ($data_GrandChildInLaw->fields() as $field) {
+                                                                            foreach ($data_GrandChildInLawIRI as $rowGrandChildInLawIRI) {
+                                                                                foreach ($data_GrandChildInLawIRI->fields() as $field) {
                                                                                     echo "-❤-";
-                                                                                    echo '<a href="?entity=' . urlencode($grandChildInLawIRI) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $rowGrandChildInLaw[$field]) . '</a>';
+                                                                                    $hasName = 0;
+                                                                                    $data_GrandChildInLaw = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
+                                                                                    PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                                                                                    PREFIX dbpprop-id: <http://id.dbpedia.org/property/>
+                                                                                    SELECT  ?name
+                                                                                    WHERE {
+                                                                                        <' . $grandchildIRI[$n] . '> fam:isSpouseOf ?sbj.
+                                                                                        ?sbj rdfs:label ?name
+                                                                                    }LIMIT 1');
+
+                                                                                    foreach ($data_GrandChildInLaw as $rowGrandChildInLaw) {
+                                                                                        foreach ($data_GrandChildInLaw->fields() as $field) {
+                                                                                            echo '<a href="?entity=' . urlencode($grandChildInLawIRI) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $rowGrandChildInLaw[$field]) . '</a>';
+                                                                                            $hasName = 1;
+                                                                                        }
+                                                                                    }
+                                                                                    if($hasName==0){
+                                                                                        if (strlen($rowGrandChildInLaw[$field]) > 20)
+                                                                                            $rowGrandChildInLaw[$field] = substr($rowGrandChildInLaw[$field], 31, 15) . '...';
+                                                                                        echo '<a ' . urlencode($rowGrandChildInLaw[$field]) . '>' . $rowGrandChildInLaw[$field] . '</a>';
+                                                                                    }
 
                                                                                     //getGreatGrandChild
                                                                                     $data_greatGrandChildIRI = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
@@ -473,8 +529,7 @@
                                                                                         SELECT DISTINCT ?greatgrandchildIRI
                                                                                         WHERE {  
                                                                                           <' . $grandChildInLawIRI . '> fam:hasChild ?greatgrandchildIRI.
-                                                                                          <' . $grandchildIRI[$n] . '> fam:hasChild ?greatgrandchildIRI.
-                                                                                          ?greatgrandchildIRI foaf:name|dbpprop-id:name|rdfs:label ?name
+                                                                                          <' . $grandchildIRI[$n] . '> fam:hasChild ?greatgrandchildIRI
                                                                                         }');
                                                                                     $m=0;
                                                                                     foreach ($data_greatGrandChildIRI as $rowgreatGrandChildIRI) {
@@ -498,19 +553,26 @@
                                                                                             foreach ($data_greatGrandChildIRI as $rowGreatGrandChildIRI) {
                                                                                                 foreach ($data_greatGrandChildIRI->fields() as $field) {
                                                                                                     echo "<li>";
+                                                                                                    $hasName = 0;
                                                                                                     $data_greatGrandChild = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
                                                                                                         PREFIX foaf: <http://xmlns.com/foaf/0.1/> 
                                                                                                         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
                                                                                                         PREFIX dbpprop-id: <http://id.dbpedia.org/property/>SELECT ?name
                                                                                                         WHERE {  
-                                                                                                          <' . $greatGrandChildIRI[$p] . '> foaf:name|dbpprop-id:name|rdfs:label ?name
+                                                                                                          <' . $greatGrandChildIRI[$p] . '> rdfs:label ?name
                                                                                                         }LIMIT 1');
                                                                                                     foreach ($data_greatGrandChild as $rowGGC) {
                                                                                                         foreach ($data_greatGrandChild->fields() as $field) {
                                                                                                             if (strlen($rowGGC[$field]) > 20)
                                                                                                                 $rowGGC[$field] = substr($rowGGC[$field], 0, 15) . '...';
                                                                                                             echo '<a href="?entity=' . urlencode($greatGrandChildIRI[$p]) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $rowGGC[$field]) . '</a>';
+                                                                                                            $hasName = 1;
                                                                                                         }
+                                                                                                    }
+                                                                                                    if ($hasName==0){
+                                                                                                        if (strlen($greatGrandChildIRI[$p]) > 20)
+                                                                                                            $greatGrandChildIRI[$p] = substr($greatGrandChildIRI[$p], 31, 15) . '...';
+                                                                                                        echo '<a ' . urlencode($greatGrandChildIRI[$p]) . '>' . $greatGrandChildIRI[$p] . '</a>';
                                                                                                     }
                                                                                                     $p++;
                                                                                                     echo "</li>";

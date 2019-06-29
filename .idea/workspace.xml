@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="132027b1-6119-4b66-bd5c-475094c68687" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -37,8 +36,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="285" column="44" selection-start-line="285" selection-start-column="44" selection-end-line="285" selection-end-column="44" />
+            <state relative-caret-position="605">
+              <caret line="510" column="95" lean-forward="true" selection-start-line="510" selection-start-column="95" selection-end-line="510" selection-end-column="95" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
@@ -52,10 +51,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>head</find>
-      <find>row {</find>
-      <find>font</find>
-      <find>font-size</find>
       <find>wrapper</find>
       <find>bg.png</find>
       <find>bg</find>
@@ -82,6 +77,10 @@
       <find>dbpprop-id:name|dbp:name</find>
       <find>PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</find>
       <find>foaf:name</find>
+      <find>foaf:name|dbpprop-id:name|</find>
+      <find>a href</find>
+      <find>//TAG</find>
+      <find>hasName==</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -230,12 +229,12 @@
       <workItem from="1561619081414" duration="3090000" />
       <workItem from="1561638661912" duration="2931000" />
       <workItem from="1561787567926" duration="2162000" />
-      <workItem from="1561794046675" duration="2474000" />
+      <workItem from="1561794046675" duration="10337000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="205993000" />
+    <option name="totallyTimeSpent" value="213856000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -348,8 +347,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="285" column="44" selection-start-line="285" selection-start-column="44" selection-end-line="285" selection-end-column="44" />
+        <state relative-caret-position="605">
+          <caret line="510" column="95" lean-forward="true" selection-start-line="510" selection-start-column="95" selection-end-line="510" selection-end-column="95" />
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
