@@ -82,7 +82,7 @@
             <?php
             if (isset($_GET['entity'])) {
                 echo "
-                <div class=" . "callout " . " style=" . "padding-bottom:1000px" . ">
+                <div class=" . "callout " . " style=" . "padding-bottom:1500px" . ">
                 <h6 class=" . "subheader" . ">DESKRIPSI INSTANCE</h6>";
 
                 $selected_val = $_GET['entity'];
@@ -292,8 +292,7 @@
                                         PREFIX dbpprop-id: <http://id.dbpedia.org/property/>
                                         SELECT DISTINCT ?spouseIRI
                                             WHERE {
-                                                <' . $selected_val . '> fam:isSpouseOf ?spouseIRI.
-                                                ?spouseIRI foaf:name|rdfs:label ?name
+                                                <' . $selected_val . '> fam:isSpouseOf ?spouseIRI
                                             } ');
                 $i=0;
                 foreach ($data_spouseIRI as $rowSpouseIRI) {
