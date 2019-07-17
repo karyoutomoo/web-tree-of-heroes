@@ -429,14 +429,14 @@
                                                         }LIMIT 1');
                                                         foreach ($data_ChildInLaw as $rowChildInLaw) {
                                                             foreach ($data_ChildInLaw->fields() as $field) {
-                                                                echo '<a href="?entity=' . urlencode($childInLawIRI) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $rowChildInLaw[$field]) . '</a>';
+                                                                echo '<s href="?entity=' . urlencode($childInLawIRI) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $rowChildInLaw[$field]) . '</s>';
                                                                 $hasName =1;
                                                             }
                                                         }
                                                         if ($hasName==0){
                                                             if (strlen($childInLawIRI) > 20)
                                                                 $childInLawIRI = substr($childInLawIRI, 31, 15) . '...';
-                                                            echo '<a ' . urlencode($childInLawIRI) . '>' . $childInLawIRI . '</a>';
+                                                            echo '<s ' . urlencode($childInLawIRI) . '>' . $childInLawIRI . '</s>';
                                                         }
                                                         //getGrandChild
                                                         $data_grandchildIRI = sparql_get("localhost:3030/brits/query", 'PREFIX fam: <http://www.co-ode.org/roberts/family-tree.owl#>
@@ -523,14 +523,14 @@
 
                                                                                     foreach ($data_GrandChildInLaw as $rowGrandChildInLaw) {
                                                                                         foreach ($data_GrandChildInLaw->fields() as $field) {
-                                                                                            echo '<a href="?entity=' . urlencode($grandChildInLawIRI) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $rowGrandChildInLaw[$field]) . '</a>';
+                                                                                            echo '<s href="?entity=' . urlencode($grandChildInLawIRI) . '">' . str_replace('http://www.dbpedia.org/resource/', "", $rowGrandChildInLaw[$field]) . '</s>';
                                                                                             $hasName = 1;
                                                                                         }
                                                                                     }
                                                                                     if($hasName==0){
                                                                                         if (strlen($rowGrandChildInLaw[$field]) > 20)
                                                                                             $rowGrandChildInLaw[$field] = substr($rowGrandChildInLaw[$field], 31, 15) . '...';
-                                                                                        echo '<a ' . urlencode($rowGrandChildInLaw[$field]) . '>' . $rowGrandChildInLaw[$field] . '</a>';
+                                                                                        echo '<s ' . urlencode($rowGrandChildInLaw[$field]) . '>' . $rowGrandChildInLaw[$field] . '</s>';
                                                                                     }
 
                                                                                     //getGreatGrandChild
@@ -598,17 +598,16 @@
                                                                         $n++;
                                                                     }
                                                                 }
-                                                                echo "</ul>";
+                                                                echo "</ul>"; //tutup cucu
                                                             }
                                                         }
                                                     }
                                                 }
-
+                                                echo "</li>";
                                             }
-                                            echo "</li>";
                                         }
                                     }
-                                    echo "</ul>";
+                                    echo "</ul>";//tutup anak
                                 }
                             }
                         }

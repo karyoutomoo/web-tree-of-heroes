@@ -81,6 +81,7 @@ right connector from last child*/
 	font-size: 11px;
 	display: inline-block;
 
+	border-color: black;
 	border-radius: 5px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -96,12 +97,12 @@ right connector from last child*/
 	text-decoration: none;
 	color: #666;
 	font-family: arial, verdana, tahoma;
-	font-size: 20px;
+	font-size: 11px;
 	display: inline-block;
 
-	border-radius: 15px;
-	border-color: red;
-	-webkit-border-radius: 15px;
+	border-radius: 5px;
+	border-color: #147cc0;
+	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 
 	transition: all 0.5s;
